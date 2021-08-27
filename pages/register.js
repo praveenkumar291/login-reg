@@ -1,8 +1,9 @@
-import { Button, Checkbox, Form, Input, Select } from 'antd';
-import 'antd/dist/antd.css';
+import { Button, Form, Input, message, Select } from 'antd';
+// import 'antd/dist/antd.css';
 import axios from 'axios';
 import React, { useState } from 'react';
 import styles from '../styles/Home.module.css';
+
 
 const { Option } = Select;
 // const residences = [
@@ -74,7 +75,7 @@ const RegistrationForm = () => {
   const [form] = Form.useForm();
 
   const onFinish = (values) => {
-    console.log('Received values of form: ', values);
+     console.log('Received values of form: ', values);
     // e.preventDefault();
 
     // fetch('https://devapi.agnicart.com/api/auth/register/', {
@@ -92,8 +93,13 @@ const RegistrationForm = () => {
       data: values,
     })
       .then(response => {
-        console.log(response);
-      }).catch(err => err);
+        console.log('postRequest', response.statusText);
+        {
+          response.statusText === 'Created' &&
+          message.success('Registration Successfull');
+values={}
+        }
+      }).catch((err) => {err && message.error('email already exists')});
 
 
     //     axios('https://devapi.agnicart.com/api/auth/register/', values, {

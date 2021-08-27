@@ -1,4 +1,6 @@
 import Login from '../components/Login'
+
+
 // import Register from '../components/Register'
 import styles from '../styles/Home.module.css'
 
@@ -6,7 +8,8 @@ import styles from '../styles/Home.module.css'
 export default function Home() {
   return (
     <div className={styles.container}>
-      <Login  />
+      <Login />
+      {/* <Table/> */}
     </div>
   )
 }

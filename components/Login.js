@@ -1,6 +1,7 @@
-import { Button, Checkbox, Form, Input } from 'antd';
-import 'antd/dist/antd.css';
+import { Button,message, Checkbox, Form, Input } from 'antd';
+
 import axios from 'axios';
+import Router  from 'next/router';
 import Link from 'next/link';
 import React from 'react';
 
@@ -9,15 +10,22 @@ import React from 'react';
 const Login= () => {
   const onFinish = (values) => {
     console.log('Success:', values);
-     axios({
+    axios({
       method: 'post',
       url: 'https://devapi.agnicart.com/api/auth/login/',
       data: values,
     })
       .then(response => {
-        console.log(response);
-      }).catch(err => err);
+        Router.push('/table')
+        console.log('postRequest', response.statusText);
+        {
+          response.statusText === 'Created' &&
+            message.success('Login successfully');
+          values = {}
+        }
+      }).catch((err) => { err && message.error('Dont have an account') });
   };
+
 
   const onFinishFailed = (errorInfo) => {
     console.log('Failed:', errorInfo);
@@ -84,10 +92,12 @@ const Login= () => {
           offset: 8,
           span: 16,
         }}
-      >
+        >
+
         <Button type="primary" htmlType="submit">
           Submit
-        </Button>
+            </Button>
+
       </Form.Item>
       </Form>
       </>
